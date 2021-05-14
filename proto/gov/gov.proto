@@ -1,0 +1,19 @@
+syntax = "proto3";
+package foranetworks.gov.gov;
+
+option go_package = "github.com/foranetworks/gov/x/gov/types";
+
+message Role {
+  string address = 1;
+  string role_type = 2 [(gogoproto.moretags) = "yaml:\"role_type\""];
+  uint64 power = 3;
+  string updater = 4;
+  Status status = 5;
+}
+
+enum Status {
+  STATE_UNINITIALIZED = 0;
+  STATE_ACTIVE = 1;
+  STATE_INACTIVE = 2;
+  STATE_BANNED = 3;
+}

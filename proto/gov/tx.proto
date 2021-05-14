@@ -1,13 +1,46 @@
 syntax = "proto3";
 package foranetworks.gov.gov;
 
-// this line is used by starport scaffolding # proto/tx/import
-
 option go_package = "github.com/foranetworks/gov/x/gov/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+  // CreateCommunity creates a community with an initial role set
+  rpc CreateCommunity(MsgCreateCommunity) returns MsgCreateCommunityResponse;
+  // AddRole adds a role to a given community
+  rpc AddRole(MsgAddRole) returns MsgAddRoleResponse;
+  // RemoveRole removes a role from a given community
+  rpc RemoveRole(MsgRemoveRole) returns MsgRemoveRoleResponse;
+  // CreateProposal creates a community proposal
+  rpc CreateProposal(MsgCreateProposal) returns MsgCreateProposalResponse;
+  // Vote votes on a proposal
+  rpc Vote(MsgVote) returns MsgVoteResponse;
 }
 
-// this line is used by starport scaffolding # proto/tx/message
+// MsgCreateCommunity defines a msg to create a new Fora community
+message MsgCreateCommunity {
+  string name = 1;
+  repeated Role = 2;
+  string by_laws_hash = 3 [(gogoproto.moretags) = "yaml:\"by_laws_hash\""];
+}
+
+// MsgCreateCommunityResponse defines the Msg/CreateCommunity response type.
+message MsgCreateCommunityResponse {}
+
+// MsgAddRole defines a msg to create a new role for a community.
+message MsgAddRole {
+  string name = 1;
+  Role role = 2;
+}
+
+// MsgAddRole defines the Msg/AddRole response type.
+message MsgAddRoleResponse {}
+
+// MsgRemoveRole defines a msg to remove a role for a community.
+message MsgRemoveRole {
+  string name = 1;
+  Role role = 2;
+}
+
+// MsgRemoveRole defines the Msg/RemoveRole response type.
+message MsgRemoveRoleResponse {}
